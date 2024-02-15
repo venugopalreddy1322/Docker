@@ -346,7 +346,7 @@ Output
 
 ```
 Using default tag: latest
-The push refers to repository [docker.io/abhishekf5/my-first-docker-image]
+The push refers to repository [docker.io/venu1322/my-first-docker-image]
 896818320e80: Pushed
 b8088c305a52: Pushed
 69dd4ccec1a0: Pushed
