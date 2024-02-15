@@ -58,3 +58,22 @@ they can be managed and backed up separately from the host file system, and can 
 In a nutshell, Bind Directory on a host as a Mount are appropriate for simple use cases where you need to mount a directory from the host file system into
 a container, while volumes are better suited for more complex use cases where you need more control over the data being persisted
 in the container.
+
+Note: 
+Which Directory of the container should be stored in this volume. 
+data is stored in the foll directories for the corresponding DB's
+PostgresSQL - /var/lib/postgresql/data
+MySQL - /var/lib/mysql
+MongoDB - /data/db
+
+examples:
+ docker volume create mongo-volume
+ docker volume ls  / lists volumes
+ docker volume ls -f name="mongo-volume" / filtering
+ 
+ To get into docker vm execute foll command
+ docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
+ # cd /var/lib/docker
+ # ls
+ You can find all the data related to Docker here: volumes, images, network overlay2, ...
+ 
