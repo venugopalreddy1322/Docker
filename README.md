@@ -354,3 +354,147 @@ c5ff2d88f679: Mounted from library/ubuntu
 latest: digest: sha256:6e49841ad9e720a7baedcd41f9b666fcd7b583151d0763fe78101bb8221b1d88 size: 1157
 ```
 
+
+## Docker Networking and Volumes
+
+This README provides an overview of Docker Networking and Docker Volumes, explaining how to set them up and manage them for containerized applications.
+
+## Table of Contents
+
+- [Docker Networks](#docker-networks)
+  - [What is Docker Network?](#what-is-docker-network)
+  - [Types of Docker Networks](#types-of-docker-networks)
+  - [Creating a Custom Docker Network](#creating-a-custom-docker-network)
+  - [Inspecting Docker Networks](#inspecting-docker-networks)
+  - [Connecting Containers to a Network](#connecting-containers-to-a-network)
+  - [Removing a Docker Network](#removing-a-docker-network)
+- [Docker Volumes](#docker-volumes)
+  - [What is Docker Volume?](#what-is-docker-volume)
+  - [Types of Docker Volumes](#types-of-docker-volumes)
+  - [Creating a Docker Volume](#creating-a-docker-volume)
+  - [Mounting Volumes to Containers](#mounting-volumes-to-containers)
+  - [Inspecting Docker Volumes](#inspecting-docker-volumes)
+  - [Removing a Docker Volume](#removing-a-docker-volume)
+
+---
+
+## Docker Networks
+
+### What is Docker Network?
+
+A **Docker network** is a communication layer for containers. By default, Docker containers are isolated from each other, but they can communicate with each other over a network. Docker provides different types of network drivers, each serving a different use case for containerized applications.
+
+### Types of Docker Networks
+
+Docker provides several built-in network drivers:
+
+1. **Bridge**: The default network driver for containers on a single host. This network allows containers to communicate with each other.
+2. **Host**: The container shares the host's network stack, which means it can use the host's IP address.
+3. **Overlay**: Used in Docker Swarm mode for multi-host communication. Allows containers on different Docker hosts to communicate.
+4. **None**: Disables networking for the container.
+
+### Creating a Custom Docker Network
+
+To create a custom Docker network, use the following command:
+
+```bash
+docker network create my_custom_network
+```
+
+This creates a new network called `my_custom_network`.
+
+### Inspecting Docker Networks
+
+You can inspect the details of a Docker network with the command:
+
+```bash
+docker network inspect my_custom_network
+```
+
+This command will provide detailed information about the network, including connected containers, IP addresses, and more.
+
+### Connecting Containers to a Network
+
+To connect a container to a specific network, use the `--network` flag when running a container:
+
+```bash
+docker run --network my_custom_network -d my_container
+```
+
+This will start the container and connect it to `my_custom_network`.
+
+### Removing a Docker Network
+
+To remove a Docker network, first ensure no containers are connected to it. Then use:
+
+```bash
+docker network rm my_custom_network
+```
+
+---
+
+## Docker Volumes
+
+### What is Docker Volume?
+
+A **Docker volume** is a persistent data storage mechanism used by containers. Volumes are stored outside the container’s filesystem and allow data to persist across container restarts and removals. They are ideal for storing databases, configuration files, logs, and other data that should not be lost when a container is removed.
+
+### Types of Docker Volumes
+
+1. **Named Volumes**: Docker-managed volumes where the user does not need to specify the underlying storage location. Docker manages the volume's lifecycle.
+2. **Anonymous Volumes**: Similar to named volumes, but without a specific name. Useful for temporary data storage.
+3. **Host Volumes (Bind Mounts)**: Mount a specific directory from the host machine into the container. This allows the container to access files on the host system.
+
+### Creating a Docker Volume
+
+To create a named volume:
+
+```bash
+docker volume create my_volume
+```
+
+This will create a volume named `my_volume`.
+
+### Mounting Volumes to Containers
+
+You can mount a volume to a container by using the `-v` or `--mount` flag:
+
+```bash
+docker run -d -v my_volume:/path/in/container my_container
+```
+
+Alternatively, using the `--mount` flag:
+
+```bash
+docker run -d --mount source=my_volume,target=/path/in/container my_container
+```
+
+### Inspecting Docker Volumes
+
+To inspect a volume and view its details:
+
+```bash
+docker volume inspect my_volume
+```
+
+This provides information about the volume, such as its mount point and associated containers.
+
+### Removing a Docker Volume
+
+To remove a volume, use:
+
+```bash
+docker volume rm my_volume
+```
+
+Note: You cannot remove a volume if it is still in use by a container.
+
+---
+
+## Conclusion
+
+Docker Networking and Volumes are crucial aspects of containerized application deployment. Networks provide a way for containers to communicate with each other, while volumes ensure persistent data storage that survives container restarts. 
+
+By understanding how to create, inspect, and manage networks and volumes, you can build more efficient and resilient containerized applications.
+
+
